@@ -1,0 +1,21 @@
+* {
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+
+body {
+    font-family: Arial, sans-serif;
+    background:#ffffff;
+}
+
+.about-container h1 {
+    font-size:45px;
+    color:#1c4f8a;
+}
+
+.about-container p {
+    margin-top:20px;
+    font-size:20px;
+}

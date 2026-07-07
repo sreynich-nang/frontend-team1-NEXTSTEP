@@ -1,0 +1,184 @@
+<style>
+  .footer {
+    background-color: #6f9bd0;
+    color: white;
+    padding: 60px 60px 30px;
+    font-family: Arial, Helvetica, sans-serif;
+  }
+
+  .footer-container {
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr 1fr;
+    gap: 80px;
+    align-items: start;
+  }
+
+  .row {
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr 1fr;
+    gap: 80px;
+    align-items: start;
+  }
+
+  /* Logo Section */
+  .logo {
+    display: flex;
+    align-items: center;
+    flex-shrink: 0;
+  }
+
+  .logo img {
+    height: 90px;
+    width: 140px;
+    display: block;
+    margin-bottom: 20px;
+  }
+
+  .footer-logo p {
+    font-size: 24px;
+    font-weight: 400;
+    margin: 0;
+  }
+
+  /* Footer Titles */
+  .footer h3 {
+    font-size: 28px;
+    margin-bottom: 25px;
+    font-weight: 700;
+  }
+
+  /* Links */
+  .footer-links ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  .footer-links ul li {
+    margin-bottom: 30px;
+  }
+
+  .footer-links ul li a {
+    color: white;
+    text-decoration: none;
+    font-size: 24px;
+    transition: 0.3s;
+  }
+
+  .footer-links ul li a:hover {
+    color: #fbd115;
+  }
+
+  /* Contact */
+  .footer-contact p {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    font-size: 23px;
+    margin-bottom: 30px;
+  }
+
+  .footer-contact i {
+    font-size: 25px;
+  }
+
+  /* Bottom */
+  .footer-bottom {
+    border-top: 1px solid rgba(255, 255, 255, 0.8);
+    margin-top: 50px;
+    padding-top: 35px;
+    text-align: center;
+    font-size: 23px;
+  }
+
+  /* Responsive Grid */
+  @media (max-width: 992px) {
+    .row {
+      grid-template-columns: 1fr 1fr;
+      gap: 40px;
+    }
+  }
+
+  @media (max-width: 600px) {
+    .footer {
+      padding: 40px 25px;
+    }
+
+    .row {
+      grid-template-columns: 1fr 1fr;
+      gap: 30px 20px;
+    }
+
+    .footer h3 {
+      font-size: 22px;
+    }
+
+    .footer-links ul li a,
+    .footer-contact p,
+    .footer-bottom {
+      font-size: 18px;
+    }
+  }
+</style>
+
+<footer class="footer">
+  <div class="footer-container row">
+    <!-- Logo -->
+    <div class="footer-logo logo">
+      <!-- <p>
+        Sharing is caring
+      </p> -->
+      <img
+        src="../../assets/images/favicon_io/image.png"
+        alt="Next Step Logo"
+      />
+    </div>
+
+    <!-- Quick Links -->
+    <div class="footer-links">
+      <h3>Quick Link</h3>
+
+      <ul>
+        <li><a href="../../index.html">Home</a></li>
+        <li><a href="../aboutus/aboutus.html">About-us</a></li>
+        <li><a href="#">Write blog</a></li>
+        <li><a href="#">Contact us</a></li>
+        <li><a href="#">FAQ</a></li>
+      </ul>
+    </div>
+
+    <!-- Sharing -->
+    <div class="footer-links">
+      <h3>What We Sharing</h3>
+
+      <ul>
+        <li><a href="#">Scholarship</a></li>
+        <li><a href="#">Life of university</a></li>
+        <li><a href="#">Experience</a></li>
+        <li><a href="#">Choosing major</a></li>
+      </ul>
+    </div>
+
+    <!-- Contact -->
+    <div class="footer-contact">
+      <h3>Contact Us</h3>
+
+      <p>
+        <i class="bi bi-geo-alt-fill"></i>
+        Phnom Penh, Cambodia
+      </p>
+
+      <p>
+        <i class="bi bi-telephone-fill"></i>
+        +855 phone-number
+      </p>
+
+      <p>
+        <i class="bi bi-envelope-fill"></i>
+        NextStep@gmail.com
+      </p>
+    </div>
+  </div>
+
+  <div class="footer-bottom">©2026 Next.Step. All rights reserved</div>
+</footer>
