@@ -1,0 +1,397 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Mentor Dashboard</title>
+
+    <!-- Bootstrap -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+
+    <!-- Bootstrap Icons -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css"
+      rel="stylesheet"
+    />
+
+    <!-- Google Material Symbols -->
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200"
+    />
+
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <style>
+      body {
+        background: #f4f7fb;
+        font-family: Arial, sans-serif;
+      }
+
+      .card-box {
+        background: white;
+        border-radius: 15px;
+        padding: 20px;
+        box-shadow: 0 3px 8px rgba(0, 0, 0, 0.1);
+        margin-bottom: 25px;
+      }
+
+      .banner {
+        background: #6b9bd1;
+        color: white;
+        border-radius: 15px;
+        padding: 30px;
+      }
+
+      .banner-buttons button {
+        margin: 0;
+      }
+
+      .profile-img {
+        width: 110px;
+        height: 110px;
+        background: #ddd;
+        border-radius: 50%;
+        margin: auto;
+      }
+
+      .stat h4 {
+        margin: 0;
+        font-size: 22px;
+      }
+
+      .blog-list {
+        max-height: 380px;
+        overflow-y: auto;
+      }
+
+      .blog-item {
+        background: #f8f9fb;
+        border-radius: 10px;
+        padding: 15px;
+        margin-bottom: 15px;
+      }
+
+      .edu-card {
+        background: #e2e8f0;
+        border-radius: 10px;
+        padding: 15px;
+        margin-bottom: 15px;
+      }
+
+      .chart-container {
+        position: relative;
+        height: 320px;
+        width: 100%;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div id="navbar"></div>
+    <div class="container-fluid py-4">
+      <div class="row">
+        <!-- RIGHT (Profile on desktop, top on mobile/tablet) -->
+        <div class="col-lg-4 order-lg-2">
+          <!-- Profile -->
+
+          <div class="card-box text-center">
+            <div class="profile-img mb-3"></div>
+
+            <small class="text-muted"> UX/UI Designer </small>
+
+            <h3>Just Me</h3>
+
+            <p class="text-muted">justme@gmail.com</p>
+
+            <div class="row mt-4 justify-content-center">
+              <div class="col-auto px-4 stat">
+                <small>Read</small>
+                <h4>1,240</h4>
+              </div>
+
+              <div class="col-auto px-4 stat">
+                <small>Saves</small>
+                <h4>1,240</h4>
+              </div>
+            </div>
+          </div>
+
+          <!-- Story -->
+
+          <div class="card-box">
+            <small class="text-muted"> Graduated: 12/06/2028 </small>
+
+            <h5 class="mt-2">My Stories</h5>
+
+            <strong> Title: I chose IT without knowing coding </strong>
+
+            <p class="mt-3">
+              "When I graduated high school, everyone told me IT was a great
+              major. I signed up even though I didn't know coding. Here's how I
+              survived the first year..."
+            </p>
+          </div>
+
+          <!-- Education -->
+
+          <h3 class="mb-3">Education & Achievements</h3>
+
+          <div class="edu-card">
+            <strong>University</strong>
+
+            <p class="mb-0">Asia Europe University</p>
+
+            <small> 2023 - 2027 </small>
+          </div>
+
+          <div class="edu-card">
+            <strong>Major</strong>
+
+            <p class="mb-0">Information Technology</p>
+
+            <small> Year 3 </small>
+          </div>
+
+          <div class="edu-card">
+            <strong>Core Skills</strong>
+
+            <p class="mb-0">UI/UX Design, GameDev</p>
+
+            <small> Experience: 2 Years </small>
+          </div>
+        </div>
+
+        <!-- LEFT (Main Content on desktop, bottom on mobile/tablet) -->
+        <div class="col-lg-8 order-lg-1">
+          <h1>Welcome back, Mentor!</h1>
+          <h5 class="text-muted mb-4">5 December, Tuesday</h5>
+
+          <!-- Banner -->
+          <div class="banner mb-4">
+            <div class="row align-items-center">
+              <div class="col-md-7 text-center">
+                <h2>"Sharing is Caring"</h2>
+
+                <p>Continue this journey with us!</p>
+
+                <div class="banner-buttons d-flex justify-content-center flex-row flex-nowrap gap-2">
+                  <button
+                    class="btn btn-light d-inline-flex align-items-center gap-2"
+                  >
+                    <span
+                      class="material-symbols-outlined"
+                      style="font-size: 20px"
+                      >post_add</span
+                    >
+                    Add Blog
+                    <span
+                      class="material-symbols-outlined"
+                      style="font-size: 16px; background-color: #e2e8f0; border-radius: 6px; width: 24px; height: 24px; display: inline-flex; align-items: center; justify-content: center; margin-left: 4px;"
+                      >add</span
+                    >
+                  </button>
+
+                  <button
+                    class="btn btn-light d-inline-flex align-items-center gap-2"
+                  >
+                    <span
+                      class="material-symbols-outlined"
+                      style="font-size: 20px"
+                      >podcasts</span
+                    >
+                    Add Podcast
+                    <span
+                      class="material-symbols-outlined"
+                      style="font-size: 16px; background-color: #e2e8f0; border-radius: 6px; width: 24px; height: 24px; display: inline-flex; align-items: center; justify-content: center; margin-left: 4px;"
+                      >add</span
+                    >
+                  </button>
+                </div>
+              </div>
+
+              <div class="col-md-5 text-center d-none d-md-block">
+                <img
+                  src="../../assets/images/dashboard.png"
+                  class="img-fluid"
+                  alt="banner"
+                />
+              </div>
+            </div>
+          </div>
+
+          <!-- Analytics -->
+
+          <div class="card-box">
+            <h2 class="text-center mb-4">Analytics Overview</h2>
+
+            <div class="chart-container">
+              <canvas id="analyticsChart"></canvas>
+            </div>
+          </div>
+
+          <!-- Blog -->
+
+          <div class="card-box">
+            <h2 class="text-center mb-4">My Blog</h2>
+
+            <div class="blog-list" id="blogList"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div id="footer"></div>
+
+    <script>
+      const blogData = [
+        {
+          date: "06/28/2026",
+          title: "How to get into Art School?",
+          status: "Published",
+          views: 23,
+          claps: 8,
+          saves: 12,
+          shares: 5,
+        },
+
+        {
+          date: "06/25/2026",
+          title: "My University Journey",
+          status: "Published",
+          views: 30,
+          claps: 15,
+          saves: 8,
+          shares: 10,
+        },
+
+        {
+          date: "06/20/2026",
+          title: "Choosing the Right Major",
+          status: "Pending",
+          views: 18,
+          claps: 4,
+          saves: 2,
+          shares: 1,
+        },
+
+        {
+          date: "06/18/2026",
+          title: "Study Tips",
+          status: "Published",
+          views: 42,
+          claps: 20,
+          saves: 17,
+          shares: 15,
+        },
+      ];
+
+      const container = document.getElementById("blogList");
+
+      blogData.forEach((blog) => {
+        const badgeClass =
+          blog.status === "Pending" ? "bg-warning text-dark" : "bg-success";
+        const metricsHTML =
+          blog.status === "Pending"
+            ? ""
+            : `<p>
+              ${blog.views} Views
+              &nbsp;&nbsp;
+              ${blog.claps} Claps
+              &nbsp;&nbsp;
+              ${blog.saves} Saves
+              &nbsp;&nbsp;
+              ${blog.shares} Shares
+            </p>`;
+
+        container.innerHTML += `
+
+<div class="blog-item d-flex justify-content-between align-items-center">
+  <div>
+    <small>Date: ${blog.date}</small>
+    <h5>${blog.title}</h5>
+    ${metricsHTML}
+    <span class="badge ${badgeClass}">
+      ${blog.status}
+    </span>
+  </div>
+  <div>
+    <button class="btn btn-light border-0 rounded-circle p-2 d-inline-flex align-items-center justify-content-center" style="width: 38px; height: 38px;" title="Edit Blog">
+      <span class="material-symbols-outlined" style="font-size: 23px; color: #5c8ee6;">edit_document</span>
+    </button>
+  </div>
+</div>
+
+`;
+      });
+
+      const ctx = document.getElementById("analyticsChart");
+
+      fetch("./seed.json")
+        .then((response) => response.json())
+        .then((seedData) => {
+          new Chart(ctx, {
+            type: "line",
+            data: {
+              labels: seedData.analytics.labels,
+              datasets: [
+                {
+                  data: seedData.analytics.data,
+                  borderColor: "#8b5cf6",
+                  backgroundColor: "rgba(139, 92, 246, 0.2)",
+                  fill: false,
+                  tension: 0,
+                  borderWidth: 3,
+                  pointBackgroundColor: "#ffffff",
+                  pointBorderColor: "#8b5cf6",
+                  pointBorderWidth: 2,
+                  pointRadius: 4,
+                  pointHoverBackgroundColor: "#ffffff",
+                  pointHoverBorderColor: "#8b5cf6",
+                  pointHoverBorderWidth: 2,
+                  pointHoverRadius: 6,
+                },
+              ],
+            },
+            options: {
+              responsive: true,
+              maintainAspectRatio: false,
+              plugins: {
+                legend: {
+                  display: false,
+                },
+              },
+              scales: {
+                x: {
+                  grid: {
+                    display: false,
+                  },
+                },
+                y: {
+                  grid: {
+                    display: true,
+                  },
+                },
+              },
+            },
+          });
+        })
+        .catch((error) => console.error("Error loading seed data:", error));
+
+      function loadComponent(url, elementId) {
+        fetch(url)
+          .then((response) => response.text())
+          .then((data) => {
+            document.getElementById(elementId).innerHTML = data;
+          });
+      }
+
+      loadComponent("../components/footer.html", "footer");
+      loadComponent("../components/nav_no_search.html", "navbar");
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  </body>
+</html>

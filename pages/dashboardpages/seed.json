@@ -1,0 +1,6 @@
+{
+  "analytics": {
+    "labels": ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug"],
+    "data": [180, 305, 245, 80, 210, 215, 220, 185]
+  }
+}
