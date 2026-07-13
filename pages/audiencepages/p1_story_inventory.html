@@ -3,19 +3,18 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>My 5 Year at ITC</title>
+    <title>NexStep - Learning From Real-Life Journeys of Others</title>
+    <meta name="description" content="Explore the academic journey, narrative timeline, and transformation of Sokha Rith at the Institute of Technology of Cambodia (ITC)." />
+    <meta name="keywords" content="ITC, Institute of Technology of Cambodia, Data Science, Civil Engineering, Student Journey, NexStep" />
 
-    <!-- bootstrap -->
     <link
       href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
       rel="stylesheet"
     />
-    <!-- bootstrap icons -->
     <link
       rel="stylesheet"
       href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"
     />
-    <!-- font awesome -->
     <link
       rel="stylesheet"
       href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.5.1/css/all.min.css"
@@ -25,13 +24,13 @@
       body {
         background: #f7f7f7;
         font-family: Arial, Helvetica, sans-serif;
+        color: #333;
       }
 
-      /* hero */
-
+      /* Hero Section Styling */
       .hero {
         position: relative;
-        height: 520px;
+        height: 480px;
         border-radius: 15px;
         overflow: hidden;
       }
@@ -46,13 +45,13 @@
         content: "";
         position: absolute;
         inset: 0;
-        background: rgba(0, 0, 0, 0.35);
+        background: rgba(0, 0, 0, 0.4);
       }
 
       .hero-content {
         position: absolute;
         left: 50%;
-        top: 65%;
+        top: 50%;
         transform: translate(-50%, -50%);
         text-align: center;
         color: white;
@@ -60,41 +59,46 @@
       }
 
       .hero-content h1 {
-        color: #fbd115;
+        font-size: 1.5rem;
+        letter-spacing: 2px;
         font-weight: bold;
+        margin-bottom: 10px;
       }
 
       .hero-content h2 {
-        font-size: 2rem;
-        font-weight: bold;
+        font-size: 2.2rem;
+        font-weight: 800;
+        text-transform: uppercase;
+        line-height: 1.3;
       }
 
-      /* profile card */
-
+      /* Profile Card Styling */
       .profile-card {
         background: white;
-        border: 1px solid #ddd;
-        border-radius: 10px;
-        padding: 25px;
+        border: 1px solid #e0e0e0;
+        border-radius: 12px;
+        padding: 30px 20px;
         text-align: center;
       }
 
       .avatar {
-        width: 90px;
-        height: 90px;
-        background: #ddd;
+        width: 85px;
+        height: 85px;
+        background: #e0e0e0;
         border-radius: 50%;
-        margin: auto;
+        margin: 0 auto 15px auto;
       }
 
       .profile-card hr {
-        margin: 25px 0;
+        margin: 20px 0;
+        border-top: 1px solid #eee;
       }
 
       .stats {
         display: flex;
         justify-content: space-around;
-        font-size: 14px;
+        font-size: 13px;
+        color: #666;
       }
 
       .stats div {
@@ -106,66 +110,213 @@
         color: #6b9bd1;
       }
 
-      .stats i {
-        margin-bottom: 5px;
-        display: inline-block;
-      }
-
-      /* tabs */
-
+      /* Tab Bar Navigation */
       .custom-tabs {
         display: flex;
         justify-content: center;
-        margin-bottom: 20px;
+        margin-bottom: 30px;
       }
 
       .custom-tabs .nav {
         background: #eee;
         border-radius: 30px;
-        padding: 5px;
+        padding: 4px;
       }
 
       .custom-tabs .nav-link {
         border-radius: 25px;
-        color: #555;
-        padding: 10px 25px;
+        color: #666;
+        padding: 8px 20px;
+        font-size: 14px;
+        font-weight: 500;
+        border: none;
       }
 
       .custom-tabs .nav-link.active {
         background: #6b9bd1;
-        color: white;
+        color: white !important;
       }
 
-      /* content */
-
+      /* Main Content Layouts */
       .content-box {
         background: white;
-        border: 1px solid #ddd;
-        padding: 30px;
-        border-radius: 8px;
-        line-height: 2;
-        font-size: 20px;
+        border: 1px solid #e0e0e0;
+        padding: 35px;
+        border-radius: 12px;
+        font-size: 16px;
+        line-height: 1.8;
       }
 
-      /* responsive */
+      /* Layout Elements for Tab 1 (Images inline with text blocks) */
+      .story-row {
+        margin-bottom: 30px;
+      }
+      .story-img {
+        width: 100%;
+        border-radius: 8px;
+        object-fit: cover;
+      }
 
+      /* Timeline Layout for Tab 2 */
+      .timeline-container {
+        position: relative;
+        padding-left: 35px;
+      }
+
+      .timeline-container::before {
+        content: "";
+        position: absolute;
+        left: 15px;
+        top: 15px;
+        bottom: 15px;
+        width: 2px;
+        border-left: 2px dashed #ddd;
+      }
+
+      .timeline-card {
+        background: white;
+        border: 1px solid #e0e0e0;
+        border-radius: 12px;
+        padding: 25px;
+        margin-bottom: 30px;
+        position: relative;
+      }
+
+      .timeline-badge {
+        position: absolute;
+        left: -32px;
+        top: 20px;
+        width: 26px;
+        height: 26px;
+        border-radius: 50%;
+        background: white;
+        border: 2px solid #6b9bd1;
+        color: white;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 12px;
+        font-weight: bold;
+        z-index: 2;
+      }
+      
+      .timeline-card:nth-of-type(1) .timeline-badge { background-color: #ff6b6b; border-color: #ff6b6b; }
+      .timeline-card:nth-of-type(2) .timeline-badge { background-color: #51cf66; border-color: #51cf66; }
+      .timeline-card:nth-of-type(3) .timeline-badge { background-color: #339af0; border-color: #339af0; }
+
+      .status-tag {
+        font-size: 11px;
+        padding: 4px 10px;
+        border-radius: 20px;
+        float: right;
+        font-weight: bold;
+        color: white;
+      }
+      .tag-red { background-color: #ff6b6b; }
+      .tag-green { background-color: #51cf66; }
+      .tag-blue { background-color: #339af0; }
+
+      .timeline-media-img {
+        width: 100%;
+        height: 180px;
+        object-fit: cover;
+        border-radius: 8px;
+        margin: 15px 0;
+      }
+
+      /* Before vs After Boxes for Tab 3 */
+      .comparison-card {
+        border: 1px solid #e0e0e0;
+        border-radius: 12px;
+        padding: 25px;
+        background: white;
+        height: 100%;
+      }
+
+      .comparison-card h4 {
+        font-weight: bold;
+        margin-bottom: 15px;
+      }
+
+      .comparison-item {
+        font-size: 14px;
+        margin-bottom: 12px;
+        display: flex;
+        align-items: flex-start;
+        gap: 10px;
+      }
+
+      .comparison-item i {
+        margin-top: 3px;
+      }
+
+      /* Big Quote Blocks */
+      .quote-block {
+        background: #1a1a1a;
+        color: white;
+        border-radius: 12px;
+        padding: 40px;
+        text-align: center;
+        margin-top: 30px;
+      }
+
+      .quote-block p {
+        font-size: 1.25rem;
+        font-style: italic;
+        font-weight: bold;
+      }
+
+      /* Metrics Section styling */
+      .metrics-box {
+        background: #f8f9fa;
+        border-radius: 8px;
+        padding: 15px;
+        text-align: center;
+        margin: 25px 0;
+      }
+      
+      .metrics-title {
+        font-size: 11px;
+        text-transform: uppercase;
+        color: #777;
+        letter-spacing: 1px;
+        font-weight: bold;
+      }
+      
+      .metrics-value {
+        font-size: 16px;
+        font-weight: bold;
+        color: #222;
+      }
+
+      /* Footer Bar Completion layout */
+      .finalize-bar {
+        background: white;
+        border: 1px solid #e0e0e0;
+        border-radius: 8px;
+        padding: 15px 25px;
+        margin-top: 30px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        flex-wrap: wrap;
+        gap: 15px;
+      }
+
+      .progress {
+        height: 10px;
+        border-radius: 10px;
+        width: 250px;
+      }
+
+      /* Responsive Rules */
       @media (max-width: 768px) {
-        .hero {
-          height: 350px;
-        }
-
-        .hero-content h1 {
-          font-size: 2rem;
-        }
-
-        .hero-content h2 {
-          font-size: 1.4rem;
-        }
-
-        .content-box {
-          margin-top: 20px;
-          font-size: 17px;
-        }
+        .hero { height: 320px; }
+        .hero-content h2 { font-size: 1.5rem; }
+        .content-box { padding: 20px; font-size: 15px; }
+        .timeline-container { padding-left: 20px; }
+        .timeline-container::before { left: 0px; }
+        .timeline-badge { left: -12px; }
       }
     </style>
   </head>
@@ -173,99 +324,282 @@
     <div id="navbar"></div>
 
     <div class="container py-4">
-      <!-- hero -->
-      <div class="hero">
-        <img src="../../assets/images/audience_background.png" alt="students" />
-
+      <div class="hero mb-4">
+        <img src="../../assets/images/audience_background.png" alt="Students learning background" />
         <div class="hero-content">
-          <h1>My 5 Year at ITC</h1>
-
-          <h2>
-            Fifth-year Data Science undergraduate at ITC with a passion for
-            data-driven solutions.
-          </h2>
+          <h1>WHAT TO DO NEXT?</h1>
+          <h2>LEARNING FROM REAL-LIFE<br />JOURNEYS OF OTHERS</h2>
         </div>
       </div>
 
-      <!-- main -->
-      <div class="row mt-4 g-4">
-        <!-- left -->
+      <div class="row g-4">
         <div class="col-lg-3">
-          <div class="profile-card">
-            <div class="avatar"></div>
-
-            <h4 class="mt-3">Sokha Rith</h4>
-
-            <small>Year 4 Civil Engineering Student</small>
-
+        <div class="profile-card">
+              <div class="avatar"></div>
+            <h4 class="fw-bold mb-1">Sokha Rith</h4>
+            <p class="text-muted small mb-0">Year 4 Civil Engineering Student</p>
             <hr />
-
             <div class="stats">
               <div>
-                <i class="fa-solid fa-hands-clapping fs-3"></i><br />
-                <strong>12k</strong> Claps
+                <i class="fa-solid fa-hands-clapping fs-4 text-secondary mb-1"></i><br />
+                <strong>1.2k</strong>
               </div>
-
               <div>
-                <i class="bi bi-bookmark fs-3"></i><br />
-                <strong>Save</strong>
+                <i class="bi bi-bookmark fs-4 text-secondary mb-1"></i><br />
+                <span>Save</span>
               </div>
-
               <div>
-                <i class="bi bi-share fs-3"></i><br />
-                <strong>Share</strong>
+                <i class="bi bi-share fs-4 text-secondary mb-1"></i><br />
+                <span>Share</span>
               </div>
             </div>
           </div>
         </div>
 
-        <!-- right -->
         <div class="col-lg-9">
           <div class="custom-tabs">
-            <ul class="nav">
-              <li class="nav-item">
-                <a class="nav-link active" href="#"> Story Inventory </a>
+            <ul class="nav nav-pills" id="journeyTabs" role="tablist">
+              <li class="nav-item" role="presentation">
+                <button class="nav-link active" id="story-tab" data-bs-toggle="pill" data-bs-target="#story-content" type="button" role="tab">Story Inventory</button>
               </li>
-
-              <li class="nav-item">
-                <a class="nav-link" href="#"> Narrative Timeline </a>
+              <li class="nav-item" role="presentation">
+                <button class="nav-link" id="timeline-tab" data-bs-toggle="pill" data-bs-target="#timeline-content" type="button" role="tab">Narrative Timeline</button>
               </li>
-
-              <li class="nav-item">
-                <a class="nav-link" href="#"> Reflection </a>
+              <li class="nav-item" role="presentation">
+                <button class="nav-link" id="reflection-tab" data-bs-toggle="pill" data-bs-target="#reflection-content" type="button" role="tab">Transformation or Reflection</button>
               </li>
             </ul>
           </div>
 
-          <div class="content-box">
-            <p>
-              The Institute of Technology of Cambodia (ITC)—or (សាលាតិចណូ) as
-              almost everyone calls it—is widely recognized as the premier
-              engineering and technology university in Cambodia.
-            </p>
+          <div class="tab-content" id="journeyTabsContent">
+            <!---Tap 1--->
+            <div class="tab-pane fade show active" id="story-content" role="tabpanel">
+              <div class="content-box">
+                <p>The Institute of Technology of Cambodia (ITC)—or (សាលាតិចណូ) as almost everyone calls it—is widely recognized as the premier engineering and technology university in Cambodia.</p>
+                <p>Founded in 1964 with support from the Soviet Union, it has evolved into a highly respected public institution that builds the country's technical workforce.</p>
+                
+                <h5 class="fw-bold mt-4 mb-3">Background and motivation of student: "Why"</h5>
+                <p>In an engineering university setting like ITC, the role of a teacher changes depending on the hour. </p>
 
-            <p>
-              Founded in 1964 with support from the Soviet Union, it has evolved
-              into a highly respected public institution that builds the
-              country's technical workforce.
-            </p>
+                <div class="row align-items-center story-row g-3 mt-3">
+                  <div class="col-md-5">
+                    <img src="../../assets/images/audience_background.png" alt="Classroom Presentation" class="story-img" />
+                  </div>
+                  <div class="col-md-7">
+                    <p class="mb-0">In an engineering university setting like ITC, the role of teaching changes depending on the hour.</p>
+                  </div>
+                </div>
+
+                <p class="mt-3">The lecture hall floor is the stage showing logic for administrators and technical programs, while department heads meet with ITC organization partners. They are the path showing how to transform student experiences into university operations.</p>
+
+                <h6 class="fw-bold mt-4">1. To Bridge Classroom Theory with Lab Reality</h6>
+                <p>Teachers from different classes need to make sure what they teach on the whiteboard matches what is happening in the physical labs. Why they change: the ITC professors keep building curriculum paths so they cover structural, administrative, and hardware solutions so the students can practice standard workflows, confidently lowering errors when rendering engineering systems.</p>
+
+                <h6 class="fw-bold mt-4">2. To Manage Complex Project Evaluations</h6>
+                <p>In many projects and fieldwork paths, students are evaluated by a panel of multiple professors and tech experts. Who they serve: Team structural frameworks, technical advisors, and dynamic functions. This ensures that every engineering project is rigorously checked, whether for municipal hardware architecture or internal software implementation.</p>
+
+
+
+                <h6 class="fw-bold mt-4">3. To Shared Hardware Infrastructure Departments</h6>
+                <p>Different engineering departments like GIC, GEE, and GIM often share core facilities, server architectures, or lab infrastructure. Why they match: basic configuration requirements like server systems or heavy power frameworks require professional collaboration. Faculty must manage resource conflicts smoothly so structural projects move forward together.</p>
+                <ul>
+                  <li>Why they meet: If one department updates its inventory system or buys new microcontrollers, professors must coordinate so they don't buy duplicate items, clash over network server space, or deplete the shared university budget.</li>
+                </ul>
+
+                <h6 class="fw-bold mt-4">4. To Review Live Performance Metrics</h6>
+                <ul>
+                  <li>Why they meet: They look at graphs of asset depreciation, high-demand component spikes, and lab downtime. Seeing this visual data together allows the department heads to make immediate decisions on how to improve the curriculum or adjust lab schedules </li>
+                </ul>
+
+                <div class="my-4">
+                  <img src="../../assets/images/audience_background.png" alt="Interactive Engineering Lab" class="w-100 rounded" style="height:250px; object-fit:cover;" />
+                </div>
+
+                <p>In an engineering university setting like ITC, the role of a teacher changes depending on the hour. You typically experience them in two distinct environments:</p>
+                <ul>
+                  <li>The Lecture Hall: As seen above, the teacher utilizes digital displays, project architectures, and slides to introduce complex logic, database structures, or programming concepts while students follow along on their laptops.</li>
+                  <li>The Practical Lab: The teacher shifts from a lecturer to a hands-on mentor, moving between benches to help student teams debug their code, malfunctioning laboratory hardware.</li>
+
+                </ul>
+
+
+                <div class="row align-items-center story-row g-3 mt-4">
+                  <div class="col-md-4">
+                    <img src="../../assets/images/audience_background.png" alt="Presentation Meeting" class="story-img" />
+                  </div>
+                  <div class="col-md-8">
+                    <p class="fw mb-1">All the Evaluation and Works are defended strictly on specific months of the year.</p>
+                  </div>
+                </div>
+
+                <p class="mt-3">Students who push themselves into professional configurations can solve complex structural problems. This is important to:</p>
+                <ul>
+                  <li>Improve structural calculations and present data patterns perfectly to senior project managers or scholarship committees.</li>
+                  <li>Train handling practical engineering projects, reduce logic errors, and manage engineering workflows from network layers down to hardware logic.</li>
+                  <li>Bridge engineering theory and practice perfectly, taking knowledge out of classrooms directly into real active industrial workspace configurations.</li>
+                </ul>
+
+                <div class="row align-items-center g-3 mt-4 pt-3 border-top">
+                  <div class="col-8">
+                    <p class="mb-0 text-muted italic">This framework guides students to structural engineering logic, preparing them for deep study fields.</p>
+                  </div>
+                  <div class="col-4">
+                    <img src="../../assets/images/audience_background.png" alt="Graduation Celebration" class="story-img" style="height: 70px;" />
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!---Tap 2--->
+            <div class="tab-pane fade" id="timeline-content" role="tabpanel">
+              <h4 class="fw-bold mb-2">Phase 2: Narrative timeline</h4>
+              <p class="text-muted mb-4">Reflecting on a multi-year academic progression at the Institute of Technology of Cambodia (ITC), navigating foundational engineering coursework, technical challenges, and real-world professional specialization.</p>
+              
+              <div class="timeline-container">
+                <div class="timeline-card shadow-sm">
+                  <div class="timeline-badge">1</div>
+                  <span class="status-tag tag-red"><i class="bi bi-exclamation-triangle-fill me-1"></i> High Hardship</span>
+                  <h5 class="fw-bold">Year 1</h5>
+                  <img src="../../assets/images/audience_background.png" alt="Year 1 Timeline" class="timeline-media-img" />
+                  <p class="mb-0 text-muted small">Navigating rigorous baseline math, physics, and basic programming layers. Adapting to the heavy academic workload and establishing computational logic frameworks essential for engineering structural design workflows.</p>
+                </div>
+
+                <div class="timeline-card shadow-sm">
+                  <div class="timeline-badge">2</div>
+                  <span class="status-tag tag-green"><i class="bi bi-graph-up-arrow me-1"></i> Moderate Growth</span>
+                  <h5 class="fw-bold">Year 2</h5>
+                  <img src="../../assets/images/audience_background.png" alt="Year 2 Timeline" class="timeline-media-img" />
+                  <p class="mb-0 text-muted small">Transitioning into core department requirements and exploratory data structures. Learning to interface mathematical formulas with programmatic logic blocks while handling team structural evaluations and lab configurations.</p>
+                </div>
+
+                <div class="timeline-card shadow-sm">
+                  <div class="timeline-badge">3</div>
+                  <span class="status-tag tag-blue"><i class="bi bi-eye-fill me-1"></i> Deep Reflection</span>
+                  <h5 class="fw-bold">Year 3</h5>
+                  <img src="../../assets/images/audience_background.png" alt="Year 3 Timeline" class="timeline-media-img" />
+                  <p class="mb-0 text-muted small">Shifting perspective toward analytics, optimization models, and advanced metrics tracking. Bridging engineering theory with industrial workspace workflows to prepare for predictive dataset processing implementations.</p>
+                </div>
+              </div>
+            </div>
+
+            <!---Tap 3-->
+            <div class="tab-pane fade" id="reflection-content" role="tabpanel">
+              <h3 class="fw-bold mb-4">Identity: Before vs After</h3>
+              
+              <div class="row g-4 mb-4">
+                <div class="col-md-6">
+                  <div class="comparison-card shadow-sm">
+                    <h4 class="text-secondary">The Foundation</h4>
+                    <p class="italic small text-muted">"Building core competencies through rigorous theoretical physics, mathematical algorithms, and baseline engineering methodologies."</p>
+                    <hr />
+                    <div class="comparison-item">
+                      <i class="bi bi-circle text-primary"></i>
+                      <span>Developing deep theoretical knowledge in structural calculation workflows.</span>
+                    </div>
+                    <div class="comparison-item">
+                      <i class="bi bi-circle text-primary"></i>
+                      <span>Navigating complex academic research without industry-standard environments.</span>
+                    </div>
+                    <div class="comparison-item">
+                      <i class="bi bi-circle text-primary"></i>
+                      <span>Managing baseline code debugging configurations within a classroom context.</span>
+                    </div>
+                  </div>
+                </div>
+
+
+                <div class="col-md-6">
+                  <div class="comparison-card shadow-sm">
+                    <h4 class="text-primary">The Transformation</h4>
+                    <p class="italic small text-muted">"Translating classroom architecture into functional, data-driven applications deployed in active structural industrial workspaces."</p>
+                    <hr />
+                    <div class="comparison-item">
+                      <i class="bi bi-check-circle-fill text-primary"></i>
+                      <span>Optimizing calculations to present data patterns perfectly to senior project managers.</span>
+                    </div>
+                    <div class="comparison-item">
+                      <i class="bi bi-check-circle-fill text-primary"></i>
+                      <span>Scaling algorithmic performance models using live structural dataset operations.</span>
+                    </div>
+                    <div class="comparison-item">
+                      <i class="bi bi-check-circle-fill text-primary"></i>
+                      <span>Bridging technical engineering theory directly with hands-on infrastructure debugging.</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="content-box">
+                <h5 class="fw-bold">The Foundation</h5>
+                <p class="text-muted">The Institute of Technology of Cambodia (ITC)—or (សាលាតិចណូ) as almost everyone calls. But if you have a sharp knife and a steady hand, go for the 8 pieces—your wallet and your kidneys will thank you! But if you have a sharp knife and a steady hand, go for the 8 pieces—your wallet and your kidneys will thank you!</p>
+                
+                <div class="row metrics-box g-2">
+                  <div class="col-6 border-end">
+                    <div class="metrics-title">Word Count</div>
+                    <div class="metrics-value">1,240</div>
+                  </div>
+                  <div class="col-6">
+                    <div class="metrics-title">Revised Clarity Index</div>
+                    <div class="metrics-value">90%</div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="quote-block">
+                <div class="text-center text-primary mt-2"><i class="bi bi-quote fs-1"></i></div>
+                
+                <p class="mb-3">"Since your body only needs about 75–90 mg a day, a 125 mg piece still gives you well over 100% of your daily requirement."</p>
+                <small class="text-muted text-uppercase tracking-wider d-block mt-2" style="font-size:11px;">Tola - Final reflection seed</small>
+              </div>
+
+              <div class="finalize-bar shadow-sm">
+                <div class="d-flex align-items-center gap-3">
+                  <span class="small fw-bold text-muted">Phase 3 completion</span>
+                  <div class="progress">
+                    <div class="progress-bar" role="progressbar" style="width: 84%; background-color:#6b9bd1;" aria-valuenow="84" aria-valuemin="0" aria-valuemax="100"></div>
+                  </div>
+                  <span class="small fw-bold text-muted">84%</span>
+                </div>
+                <button class="btn btn-primary btn-sm px-4 rounded" style="background-color: #2b5c8f; border:none;">Finalize</button>
+              </div>
+
+            </div>
+
           </div>
         </div>
       </div>
     </div>
+
     <div id="footer"></div>
 
     <script>
       function loadComponent(url, elementId) {
-        fetch(url)
+        return fetch(url)
           .then((response) => response.text())
           .then((data) => {
             document.getElementById(elementId).innerHTML = data;
-          });
+          })
+          .catch(err => console.log("Component load skip inside preview environment"));
       }
 
-      loadComponent("../components/footer.html", "footer");
-      loadComponent("../components/nav_no_search.html", "navbar");
+        // Change the navbar loading line to this:
+        loadComponent("../components/nav_no_search.html", "navbar").then(() => {
+          const menuTrigger = document.querySelector('.nav-menu');
+          const dropdownMenu = document.getElementById('dropdownMenu');
+
+          if (menuTrigger && dropdownMenu) {
+            menuTrigger.addEventListener('click', (event) => {
+              event.stopPropagation(); 
+              dropdownMenu.classList.toggle('show');
+            });
+
+            window.addEventListener('click', (event) => {
+              if (!dropdownMenu.contains(event.target) && !menuTrigger.contains(event.target)) {
+                dropdownMenu.classList.remove('show');
+              }
+            });
+          }
+        });
     </script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
   </body>
