@@ -12,7 +12,6 @@
       />
     </a>
 
-
     <!-- Right Side Actions (Menu + Profile Grouped Together) -->
     <div class="right-section">
       <!-- Menu -->
@@ -32,29 +31,23 @@
     </div>
   </nav>
 
-<div class="dropdown-menu-panel" id="dropdownMenu">
-    <a href="#" class="menu-item">
+  <div class="dropdown-menu-panel" id="dropdownMenu">
+    <a href="../homepages/homepage.html" class="menu-item">
       <i class="bi bi-house-door-fill"></i> Home
     </a>
-    <a href="#" class="menu-item active-item">
+    <a href="../menu/aboutus.html" class="menu-item">
       <i class="bi bi-journal-bookmark-fill"></i> About us
     </a>
-    <a href="#" class="menu-item">
+    <a href="../writerblogs/writerblog.html" class="menu-item">
       <i class="bi bi-pencil-square"></i> Write blog
     </a>
-    <a href="#" class="menu-item">
+    <a href="../menu/contactus.html" class="menu-item">
       <i class="bi bi-telephone-fill"></i> Contact us
     </a>
-    <a href="#" class="menu-item">
+    <a href="../menu/faq.html" class="menu-item">
       <i class="bi bi-chat-right-text-fill"></i> FAQ
     </a>
   </div>
-
-
-
-
-
-
 </header>
 
 <style>
@@ -74,19 +67,18 @@
     transition: all 0.3s ease;
   }
 
-/* Logo */
-.logo {
-  display: flex;
-  align-items: center;
-  flex-shrink: 0;
-}
+  /* Logo */
+  .logo {
+    display: flex;
+    align-items: center;
+    flex-shrink: 0;
+  }
 
-.logo img {
-  height: 90px;
-  width: 140px;
-  display: block;
-}
-
+  .logo img {
+    height: 90px;
+    width: 140px;
+    display: block;
+  }
 
   /* Right Section (Groups Menu and Profile on the right side) */
   .right-section {
@@ -167,24 +159,26 @@
     }
   }
 
-/* --- NEW DROPDOWN PANEL STYLES --- */
+  /* --- NEW DROPDOWN PANEL STYLES --- */
   .dropdown-menu-panel {
     position: absolute;
-    top: 100%; 
+    top: 100%;
     right: 0;
-    width: 300px; 
+    width: 300px;
     background-color: white;
     box-shadow: -4px 4px 15px rgba(0, 0, 0, 0.15);
     display: flex;
     flex-direction: column;
     padding: 20px 0;
     z-index: 1000;
-    
+
     /* Hidden states */
     opacity: 0;
     pointer-events: none;
     transform: translateY(-10px);
-    transition: opacity 0.3s ease, transform 0.3s ease;
+    transition:
+      opacity 0.3s ease,
+      transform 0.3s ease;
   }
 
   /* Target state when menu opens */
@@ -228,7 +222,7 @@
   /* Responsive tweaking for mobile menu panel layout */
   @media (max-width: 768px) {
     .dropdown-menu-panel {
-      width: 100%; 
+      width: 100%;
     }
     .menu-item {
       font-size: 18px;
@@ -238,28 +232,42 @@
       font-size: 22px;
     }
   }
-
-
-
-
-
 </style>
-
 
 <script>
   // Selects your existing menu item dynamically
-  const menuTrigger = document.querySelector('.nav-menu');
-  const dropdownMenu = document.getElementById('dropdownMenu');
+  const menuTrigger = document.querySelector(".nav-menu");
+  const dropdownMenu = document.getElementById("dropdownMenu");
 
-  menuTrigger.addEventListener('click', (event) => {
-    event.stopPropagation(); 
-    dropdownMenu.classList.toggle('show');
+  menuTrigger.addEventListener("click", (event) => {
+    event.stopPropagation();
+    dropdownMenu.classList.toggle("show");
   });
 
   // Closes the menu if you click anywhere else on the screen
-  window.addEventListener('click', (event) => {
-    if (!dropdownMenu.contains(event.target) && !menuTrigger.contains(event.target)) {
-      dropdownMenu.classList.remove('show');
+  window.addEventListener("click", (event) => {
+    if (
+      !dropdownMenu.contains(event.target) &&
+      !menuTrigger.contains(event.target)
+    ) {
+      dropdownMenu.classList.remove("show");
     }
   });
+
+  // Dynamically set the active-item class depending on the current page path
+  const currentPath = window.location.pathname;
+  const menuItems = dropdownMenu.querySelectorAll(".menu-item");
+  menuItems.forEach((item) => item.classList.remove("active-item"));
+
+  if (currentPath.includes("homepage.html") || currentPath.endsWith("/") || currentPath.endsWith("index.html")) {
+    menuItems[0].classList.add("active-item");
+  } else if (currentPath.includes("aboutus.html")) {
+    menuItems[1].classList.add("active-item");
+  } else if (currentPath.includes("writerblog")) {
+    menuItems[2].classList.add("active-item");
+  } else if (currentPath.includes("contactus.html")) {
+    menuItems[3].classList.add("active-item");
+  } else if (currentPath.includes("faq.html")) {
+    menuItems[4].classList.add("active-item");
+  }
 </script>

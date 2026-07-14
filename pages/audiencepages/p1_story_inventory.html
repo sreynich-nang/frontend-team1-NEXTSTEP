@@ -577,29 +577,22 @@
         return fetch(url)
           .then((response) => response.text())
           .then((data) => {
-            document.getElementById(elementId).innerHTML = data;
+            const container = document.getElementById(elementId);
+            container.innerHTML = data;
+            const scripts = container.querySelectorAll("script");
+            scripts.forEach((oldScript) => {
+              const newScript = document.createElement("script");
+              Array.from(oldScript.attributes).forEach((attr) =>
+                newScript.setAttribute(attr.name, attr.value)
+              );
+              newScript.appendChild(document.createTextNode(oldScript.innerHTML));
+              oldScript.parentNode.replaceChild(newScript, oldScript);
+            });
           })
           .catch(err => console.log("Component load skip inside preview environment"));
       }
 
-        // Change the navbar loading line to this:
-        loadComponent("../components/nav_no_search.html", "navbar").then(() => {
-          const menuTrigger = document.querySelector('.nav-menu');
-          const dropdownMenu = document.getElementById('dropdownMenu');
-
-          if (menuTrigger && dropdownMenu) {
-            menuTrigger.addEventListener('click', (event) => {
-              event.stopPropagation(); 
-              dropdownMenu.classList.toggle('show');
-            });
-
-            window.addEventListener('click', (event) => {
-              if (!dropdownMenu.contains(event.target) && !menuTrigger.contains(event.target)) {
-                dropdownMenu.classList.remove('show');
-              }
-            });
-          }
-        });
+      loadComponent("../components/nav_no_search.html", "navbar");
     </script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
   </body>

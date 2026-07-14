@@ -100,7 +100,17 @@
         return fetch(url)
           .then((response) => response.text())
           .then((data) => {
-            document.getElementById(elementId).innerHTML = data;
+            const container = document.getElementById(elementId);
+            container.innerHTML = data;
+            const scripts = container.querySelectorAll("script");
+            scripts.forEach((oldScript) => {
+              const newScript = document.createElement("script");
+              Array.from(oldScript.attributes).forEach((attr) =>
+                newScript.setAttribute(attr.name, attr.value)
+              );
+              newScript.appendChild(document.createTextNode(oldScript.innerHTML));
+              oldScript.parentNode.replaceChild(newScript, oldScript);
+            });
           });
       }
 
