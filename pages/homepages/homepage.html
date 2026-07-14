@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NextStep | Homepage</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <link rel="stylesheet" href="/assets/css/global.css">
+    <link rel="stylesheet" href="/assets/css/homepage.css">
+</head>
+
+<body>
+
+    <div id="navbar"></div>
+
+    <section class="hero text-white d-flex align-items-center" id="banner"
+        style="background: url('/pages/menu/image/2026-07-14\ 10.20.10.jpg') no-repeat center center/cover; ">
+        <div class="container">
+            <div class="hero-content ">
+                <h1 class="fw-bold ">
+                    Your New Step <br> start here
+                </h1>
+                <p class="fs-5 mb-4 opacity-90">
+                    Real stories, Real people, Real guidance for every stage for your journey
+                </p>
+                <div class="hero-buttons d-flex gap-3">
+                    <a href="#" class="btn btn-primary px-4 py-2 rounded-pill">
+                        Explore stories
+                    </a>
+                    <a href="#" class="btn btn-light px-4 py-2 rounded-pill text-dark">
+                        Share your journey
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="about-section py-5">
+        <div class="container">
+            <div class="row align-items-center">
+
+                <div class="col-lg-6 mb-4">
+                    <h2 class="fw-bold mb-3">WHAT WE DO?</h2>
+                    <p class="text-secondary">
+                        NextStep is a platform where students share real-life experiences, educational journeys, and
+                        career stories.
+                        Through structured blogs and personal insights,
+                        we help students explore different paths, make informed decisions, and confidently take their
+                        next step.
+                    </p>
+                </div>
+                <div class="col-lg-6">
+                    <img src="/pages/menu/image/meet.jpg" class="img-fluid rounded shadow-sm" alt="What We Do Graphic">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="stories py-5">
+        <div class="container">
+            <div class="bg-white p-4 p-md-5 rounded-4 shadow-sm border">
+                <div
+                    class="d-flex flex-column flex-md-row justify-content-between align-items-md-center mb-4 pb-2 border-bottom">
+                    <h2 class="fw-bold fs-3 mb-3 mb-md-0">Feature Stories</h2>
+                    <div class="d-flex gap-2 flex-wrap">
+                        <button class="btn btn-primary btn-sm rounded-pill px-3">All stories</button>
+                        <button class="btn btn-outline-primary btn-sm rounded-pill px-3">University</button>
+                        <button class="btn btn-outline-primary btn-sm rounded-pill px-3">Scholarship</button>
+                    </div>
+                </div>
+                <div class="row g-4">
+                    <div class="col-lg-8">
+                        <div class="card h-100 border rounded-3 overflow-hidden text-center shadow-sm">
+                            <img src="/pages/menu/image/2026-07-14 15.03.37.jpg" class="card-img-top object-cover"
+                                style="height: 300px;" alt="Blog 1">
+                            <div class="card-body p-4">
+                                <h4 class="card-title fw-semibold">My 5 Year at ITC</h4>
+                                <a href="/pages/audiencepages/p1_story_inventory.html"
+                                    class="btn btn-outline-secondary btn-sm rounded-pill px-4 mt-2">Read more</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-4">
+                        <div class="card h-100 border rounded-3 overflow-hidden text-center shadow-sm">
+                            <img src="/pages/menu/image/2026-07-14 15.10.45.jpg" class="card-img-top object-fit-cover"
+                                style="height: 250px;" alt="Blog 2">
+                            <div class="card-body p-4">
+                                <h5 class="card-title fw-semibold">LEARNING FROM REAL-LIFE
+                                    JOURNEYS OF OTHERS</h5>
+                                <a href="#" class="btn btn-outline-secondary btn-sm rounded-pill px-4 mt-2">Read
+                                    more</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <div id="footer"></div>
+
+    <script>
+        function loadComponent(url, elementId) {
+            return fetch(url)
+                .then(response => response.text())
+                .then(data => {
+                    document.getElementById(elementId).innerHTML = data;
+                })
+                .catch(error => console.error(error));
+        }
+
+        loadComponent("../components/footer.html", "footer");
+
+        loadComponent("../components/nav_no_search.html", "navbar")
+            .then(() => {
+
+                const menuTrigger = document.querySelector(".nav-menu");
+                const dropdownMenu = document.getElementById("dropdownMenu");
+
+                if (menuTrigger && dropdownMenu) {
+
+                    menuTrigger.addEventListener("click", function (e) {
+
+                        e.stopPropagation();
+
+                        dropdownMenu.classList.toggle("show");
+
+                    });
+
+                    window.addEventListener("click", function (e) {
+
+                        if (!dropdownMenu.contains(e.target) &&
+                            !menuTrigger.contains(e.target)) {
+
+                            dropdownMenu.classList.remove("show");
+
+                        }
+
+                    });
+
+                }
+
+            });
+    </script>
+    <scrip src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js">
+        </script>
+
+</body>
+
+</html>
