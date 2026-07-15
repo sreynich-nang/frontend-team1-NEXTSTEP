@@ -84,6 +84,7 @@ body {
     color: #1a1a1a;
 }
 
+.main-wrapper h1,
 .main-wrapper h2 {
     font-size: 1.65rem;
     color: #111111;

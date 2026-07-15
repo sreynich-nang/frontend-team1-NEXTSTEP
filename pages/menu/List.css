@@ -139,7 +139,7 @@ body {
   cursor: pointer;
 }
 
-.profile-info h2 {
+.profile-info .profile-name {
   font-size: 22px;
   font-weight: 700;
   color: #000000;
