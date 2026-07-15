@@ -207,11 +207,8 @@
 
 
 .stories .btn-outline-secondary:hover {
-
-    background-color: var(--primary-blue);
-
-    border-color: var(--primary-blue);
-
-    color: darkblue;
-
+    background-color: #8cb3ea;
+    border-color: #8cb3ea;
+    color: white;
+    font-weight: bold;
 }
