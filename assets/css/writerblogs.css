@@ -1,7 +1,6 @@
 body {
-    background: #f5f7fb;
-    font-family: Karma;
-    margin: 0;
+    background-color: var(--bg-light);
+    font-family: var(--font-sans);
 }
 
 .sidebar {
@@ -21,6 +20,9 @@ textarea {
 }
 
 .list-group-item.active {
+    background-color: var(--primary-color);
+    border-color: var(--primary-color);
+    color: var(--active-text);
     border-radius: 8px;
 }
 
