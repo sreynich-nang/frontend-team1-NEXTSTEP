@@ -105,8 +105,9 @@
         transition: color 0.2s;
       }
 
-      .stats div:hover {
-        color: #6b9bd1;
+      .stats div:hover,
+      .stats div:hover i {
+        color: #6b9bd1 !important;
       }
 
       /* Tab Bar Navigation */
@@ -592,6 +593,7 @@
       }
 
       loadComponent("../components/nav_no_search.html", "navbar");
+      loadComponent("../components/footer.html", "footer");
     </script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
   </body>
