@@ -3,6 +3,24 @@ body {
     font-family: var(--font-sans);
 }
 
+.user-icon {
+    color: var(--active-text);
+    display: inline-flex;
+    align-items: center;
+    text-decoration: none;
+}
+
+.circle {
+    width: 44px;
+    height: 44px;
+    border: 3px solid var(--active-text);
+    border-radius: 50%;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 24px;
+}
+
 .sidebar {
     min-height: 100vh;
 }

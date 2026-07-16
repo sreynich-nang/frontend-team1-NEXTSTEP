@@ -5,7 +5,7 @@
 <header class="main-header">
   <nav class="navbar">
     <!-- Logo -->
-    <a href="../../index.html" class="logo">
+    <a href="/index.html" class="logo">
       <img
         src="../../assets/images/favicon_io/image.png"
         alt="Next Step Logo"
@@ -31,7 +31,7 @@
       </div>
 
       <!-- User Icon -->
-      <a href="../menu/profile.html" class="user-icon">
+      <a href="/pages/menu/profile.html" class="user-icon">
         <div class="circle">
           <i class="bi bi-person-circle"></i>
         </div>
@@ -40,19 +40,19 @@
   </nav>
 
   <div class="dropdown-menu-panel" id="dropdownMenu">
-    <a href="../homepages/homepage.html" class="menu-item">
+    <a href="/pages/homepages/homepage.html" class="menu-item">
       <i class="bi bi-house-door-fill"></i> Home
     </a>
-    <a href="../menu/aboutus.html" class="menu-item">
+    <a href="/pages/menu/aboutus.html" class="menu-item">
       <i class="bi bi-journal-bookmark-fill"></i> About us
     </a>
-    <a href="../writerblogs/choice2write.html" class="menu-item">
+    <a href="/pages/writerblogs/choice2write.html" class="menu-item">
       <i class="bi bi-pencil-square"></i> Write blog
     </a>
-    <a href="../menu/contactus.html" class="menu-item">
+    <a href="/pages/menu/contactus.html" class="menu-item">
       <i class="bi bi-telephone-fill"></i> Contact us
     </a>
-    <a href="../menu/faq.html" class="menu-item">
+    <a href="/pages/menu/faq.html" class="menu-item">
       <i class="bi bi-chat-right-text-fill"></i> FAQ
     </a>
   </div>
@@ -75,18 +75,18 @@
     transition: all 0.3s ease;
   }
 
-/* Logo */
-.logo {
-  display: flex;
-  align-items: center;
-  flex-shrink: 0;
-}
+  /* Logo */
+  .logo {
+    display: flex;
+    align-items: center;
+    flex-shrink: 0;
+  }
 
-.logo img {
-  height: 90px;
-  width: auto;
-  display: block;
-}
+  .logo img {
+    height: 90px;
+    width: auto;
+    display: block;
+  }
 
   /* Search */
   .search-box {
@@ -304,7 +304,11 @@
   const menuItems = dropdownMenu.querySelectorAll(".menu-item");
   menuItems.forEach((item) => item.classList.remove("active-item"));
 
-  if (currentPath.includes("homepage.html") || currentPath.endsWith("/") || currentPath.endsWith("index.html")) {
+  if (
+    currentPath.includes("homepage.html") ||
+    currentPath.endsWith("/") ||
+    currentPath.endsWith("index.html")
+  ) {
     menuItems[0].classList.add("active-item");
   } else if (currentPath.includes("aboutus.html")) {
     menuItems[1].classList.add("active-item");
