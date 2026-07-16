@@ -128,7 +128,7 @@
       <!-- <p>
         Sharing is caring
       </p> -->
-      <img src="/assets/images/favicon_io/image.png" alt="Next Step Logo" />
+      <img src="" id="footer-logo-img" alt="Next Step Logo" />
     </div>
 
     <!-- Quick Links -->
@@ -136,11 +136,11 @@
       <h3>Quick Link</h3>
 
       <ul>
-        <li><a href="../../index.html">Home</a></li>
-        <li><a href="../menu/aboutus.html">About-us</a></li>
-        <li><a href="../writerblogs/choice2write.html">Write blog</a></li>
-        <li><a href="../menu/contactus.html">Contact us</a></li>
-        <li><a href="../menu/faq.html">FAQ</a></li>
+        <li><a href="" id="footer-home-link">Home</a></li>
+        <li><a href="" id="footer-about-link">About-us</a></li>
+        <li><a href="" id="footer-write-link">Write blog</a></li>
+        <li><a href="" id="footer-contact-link">Contact us</a></li>
+        <li><a href="" id="footer-faq-link">FAQ</a></li>
       </ul>
     </div>
 
@@ -179,3 +179,21 @@
 
   <div class="footer-bottom">©2026 Next.Step. All rights reserved</div>
 </footer>
+
+<script>
+  // Compute base URL that works for both local and GitHub Pages hosting.
+  (function () {
+    var path = window.location.pathname;
+    // Remove everything from /pages/ onwards to get the root path
+    var rootPath = path.replace(/\/pages\/.*$/, "").replace(/\/index\.html$/, "").replace(/\/[^/]+\.html$/, "");
+    if (rootPath === path) rootPath = path.replace(/\/[^/]*$/, "");
+    var base = window.location.origin + rootPath;
+
+    document.getElementById("footer-logo-img").src = base + "/assets/images/favicon_io/image.png";
+    document.getElementById("footer-home-link").href = base + "/index.html";
+    document.getElementById("footer-about-link").href = base + "/pages/menu/aboutus.html";
+    document.getElementById("footer-write-link").href = base + "/pages/writerblogs/choice2write.html";
+    document.getElementById("footer-contact-link").href = base + "/pages/menu/contactus.html";
+    document.getElementById("footer-faq-link").href = base + "/pages/menu/faq.html";
+  })();
+</script>

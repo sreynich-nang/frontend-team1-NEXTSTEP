@@ -5,8 +5,8 @@
 <header class="main-header">
   <nav class="navbar">
     <!-- Logo -->
-    <a href="/index.html" class="logo">
-      <img src="/assets/images/favicon_io/image.png" alt="Next Step Logo" />
+    <a href="" class="logo" id="nav-logo-link">
+      <img src="" alt="Next Step Logo" id="nav-logo-img" />
     </a>
 
     <!-- Search -->
@@ -28,7 +28,7 @@
       </div>
 
       <!-- User Icon -->
-      <a href="/pages/menu/profile.html" class="user-icon">
+      <a href="" class="user-icon" id="nav-profile-link">
         <div class="circle">
           <i class="bi bi-person-circle"></i>
         </div>
@@ -37,19 +37,19 @@
   </nav>
 
   <div class="dropdown-menu-panel" id="dropdownMenu">
-    <a href="/pages/homepages/homepage.html" class="menu-item">
+    <a href="" class="menu-item" id="nav-home-link">
       <i class="bi bi-house-door-fill"></i> Home
     </a>
-    <a href="/pages/menu/aboutus.html" class="menu-item">
+    <a href="" class="menu-item" id="nav-about-link">
       <i class="bi bi-journal-bookmark-fill"></i> About us
     </a>
-    <a href="/pages/writerblogs/choice2write.html" class="menu-item">
+    <a href="" class="menu-item" id="nav-write-link">
       <i class="bi bi-pencil-square"></i> Write blog
     </a>
-    <a href="/pages/menu/contactus.html" class="menu-item">
+    <a href="" class="menu-item" id="nav-contact-link">
       <i class="bi bi-telephone-fill"></i> Contact us
     </a>
-    <a href="/pages/menu/faq.html" class="menu-item">
+    <a href="" class="menu-item" id="nav-faq-link">
       <i class="bi bi-chat-right-text-fill"></i> FAQ
     </a>
   </div>
@@ -277,6 +277,35 @@
 </style>
 
 <script>
+  // Compute base URL that works for both local and GitHub Pages hosting.
+  // Finds the repo root by looking for the last occurrence of the known
+  // component path in the current page URL.
+  (function () {
+    var base = document.currentScript
+      ? document.currentScript.src
+      : window.location.href;
+
+    // Walk up from the current page URL to find the repo root.
+    // The nav component is always at pages/components/nav.html relative to root.
+    var path = window.location.pathname;
+    // Remove everything from /pages/ onwards to get the root path
+    var rootPath = path.replace(/\/pages\/.*$/, "").replace(/\/index\.html$/, "").replace(/\/[^/]+\.html$/, "");
+    // For root index.html case, just strip the filename
+    if (rootPath === path) rootPath = path.replace(/\/[^/]*$/, "");
+    var origin = window.location.origin;
+    var base = origin + rootPath;
+
+    // Set all nav hrefs using computed base
+    document.getElementById("nav-logo-link").href = base + "/index.html";
+    document.getElementById("nav-logo-img").src = base + "/assets/images/favicon_io/image.png";
+    document.getElementById("nav-profile-link").href = base + "/pages/menu/profile.html";
+    document.getElementById("nav-home-link").href = base + "/pages/homepages/homepage.html";
+    document.getElementById("nav-about-link").href = base + "/pages/menu/aboutus.html";
+    document.getElementById("nav-write-link").href = base + "/pages/writerblogs/choice2write.html";
+    document.getElementById("nav-contact-link").href = base + "/pages/menu/contactus.html";
+    document.getElementById("nav-faq-link").href = base + "/pages/menu/faq.html";
+  })();
+
   // Selects your existing menu item dynamically
   const menuTrigger = document.querySelector(".nav-menu");
   const dropdownMenu = document.getElementById("dropdownMenu");
