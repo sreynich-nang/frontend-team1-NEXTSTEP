@@ -141,3 +141,29 @@ button {
     border-color: var(--primary-hover) !important;
     color: #ffffff !important;
 }
+
+/* Reflection Card interactive borders on hover/focus */
+.reflection-card {
+    border: 2px solid #e9ecef !important;
+    transition: border-color 0.25s ease, box-shadow 0.25s ease;
+}
+
+.reflection-card:hover,
+.reflection-card:focus-within {
+    border-color: var(--primary-color) !important;
+    box-shadow: 0 8px 16px rgba(140, 179, 234, 0.15) !important;
+}
+
+/* Preview Blog Button (Outline style) */
+#preview-blog.btn-outline-primary {
+    color: var(--active-text) !important;
+    border-color: var(--primary-color) !important;
+    background-color: transparent !important;
+    transition: all 0.2s ease-in-out;
+}
+
+#preview-blog.btn-outline-primary:hover {
+    background-color: var(--primary-hover) !important;
+    border-color: var(--primary-hover) !important;
+    color: #ffffff !important;
+}

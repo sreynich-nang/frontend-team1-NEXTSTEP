@@ -66,6 +66,18 @@ document.addEventListener("DOMContentLoaded", function() {
                 attachChangeListeners();
             } else if (window.location.pathname.includes("p2_narrativetime.html")) {
                 loadTimelineState();
+            } else if (window.location.pathname.includes("p3_reflection.html")) {
+                loadReflectionState();
+                document.querySelectorAll('main textarea').forEach(textarea => {
+                    textarea.addEventListener('input', saveReflectionState);
+                });
+                const saveProgressButton = document.getElementById("save-progress");
+                if (saveProgressButton) {
+                    saveProgressButton.addEventListener("click", function() {
+                        saveReflectionState();
+                        alert("Progress saved successfully!");
+                    });
+                }
             }
         })
         .catch(err => {
@@ -76,6 +88,18 @@ document.addEventListener("DOMContentLoaded", function() {
                 attachChangeListeners();
             } else if (window.location.pathname.includes("p2_narrativetime.html")) {
                 loadTimelineState();
+            } else if (window.location.pathname.includes("p3_reflection.html")) {
+                loadReflectionState();
+                document.querySelectorAll('main textarea').forEach(textarea => {
+                    textarea.addEventListener('input', saveReflectionState);
+                });
+                const saveProgressButton = document.getElementById("save-progress");
+                if (saveProgressButton) {
+                    saveProgressButton.addEventListener("click", function() {
+                        saveReflectionState();
+                        alert("Progress saved successfully!");
+                    });
+                }
             }
         });
 
@@ -759,4 +783,64 @@ window.addCardToSection = function(button) {
 
     attachChangeListeners();
     saveWorkbenchState();
+};
+
+// State Persistence for Phase 3 Reflection
+window.saveReflectionState = function() {
+    if (!window.location.pathname.includes("p3_reflection.html")) return;
+    const data = {};
+    document.querySelectorAll('main textarea').forEach(textarea => {
+        if (textarea.id) {
+            data[textarea.id] = textarea.value;
+        }
+    });
+
+    // Get attachments for Closing Reflection
+    const attachments = [];
+    const closingCard = document.getElementById('closing-reflection')?.closest('.card');
+    if (closingCard) {
+        closingCard.querySelectorAll('.attachment-item').forEach(itemDiv => {
+            attachments.push({
+                type: itemDiv.dataset.type,
+                name: itemDiv.dataset.name,
+                data: itemDiv.dataset.data
+            });
+        });
+    }
+    data.attachments = attachments;
+
+    localStorage.setItem('workbench-p3-reflection', JSON.stringify(data));
+};
+
+window.loadReflectionState = function() {
+    if (!window.location.pathname.includes("p3_reflection.html")) return;
+    const saved = localStorage.getItem('workbench-p3-reflection');
+    if (!saved) return;
+    try {
+        const data = JSON.parse(saved);
+        if (!data) return;
+        
+        // Load textareas
+        for (const [id, value] of Object.entries(data)) {
+            if (id === 'attachments') continue;
+            const textarea = document.getElementById(id);
+            if (textarea) {
+                textarea.value = value;
+            }
+        }
+
+        // Load attachments inside closing reflection card
+        const closingCard = document.getElementById('closing-reflection')?.closest('.card');
+        if (closingCard && data.attachments && Array.isArray(data.attachments)) {
+            // Clear existing ones if any
+            const container = closingCard.querySelector('.uploaded-items-container');
+            if (container) container.innerHTML = '';
+            
+            data.attachments.forEach(att => {
+                window.addAttachmentItem(closingCard, att, window.saveReflectionState);
+            });
+        }
+    } catch (e) {
+        console.error("Error restoring reflection state:", e);
+    }
 };
