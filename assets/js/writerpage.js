@@ -1,5 +1,84 @@
 document.addEventListener("DOMContentLoaded", function() {
     
+    // Global variable to store attachment component HTML template
+    window.uploadComponentHtml = '';
+
+    // Helper function to add attachment items visually below the badges
+    window.addAttachmentItem = function(cardOrYearDiv, attachment, deleteCallback) {
+        const itemsContainer = cardOrYearDiv.querySelector('.uploaded-items-container');
+        if (!itemsContainer) return;
+
+        const itemDiv = document.createElement('div');
+        itemDiv.className = 'attachment-item position-relative border rounded p-2 d-flex align-items-center bg-light';
+        itemDiv.style.width = 'fit-content';
+        itemDiv.style.maxWidth = '250px';
+        itemDiv.dataset.type = attachment.type;
+        itemDiv.dataset.name = attachment.name;
+        itemDiv.dataset.data = attachment.data;
+
+        if (attachment.type === 'image') {
+            itemDiv.innerHTML = `
+                <img src="${attachment.data}" class="rounded me-2" style="width: 32px; height: 32px; object-fit: cover;" />
+                <span class="text-truncate me-2" style="max-width: 150px; font-size: 0.8rem;" title="${attachment.name}">${attachment.name}</span>
+                <button type="button" class="btn-close ms-auto delete-attachment" style="font-size: 0.6rem; padding: 0.25rem;"></button>
+            `;
+        } else if (attachment.type === 'file') {
+            itemDiv.innerHTML = `
+                <span class="material-symbols-outlined text-danger me-2" style="font-size: 20px;">upload_file</span>
+                <span class="text-truncate me-2" style="max-width: 150px; font-size: 0.8rem;" title="${attachment.name}">
+                    <a href="${attachment.data}" download="${attachment.name}" class="text-decoration-none text-dark fw-medium">${attachment.name}</a>
+                </span>
+                <button type="button" class="btn-close ms-auto delete-attachment" style="font-size: 0.6rem; padding: 0.25rem;"></button>
+            `;
+        } else if (attachment.type === 'link') {
+            itemDiv.innerHTML = `
+                <span class="material-symbols-outlined text-primary me-2" style="font-size: 20px;">add_link</span>
+                <span class="text-truncate me-2" style="max-width: 150px; font-size: 0.8rem;" title="${attachment.name}">
+                    <a href="${attachment.data}" target="_blank" rel="noopener noreferrer" class="text-decoration-none text-primary fw-medium">${attachment.name}</a>
+                </span>
+                <button type="button" class="btn-close ms-auto delete-attachment" style="font-size: 0.6rem; padding: 0.25rem;"></button>
+            `;
+        }
+
+        // Click listener for delete
+        itemDiv.querySelector('.delete-attachment').addEventListener('click', function() {
+            itemDiv.remove();
+            if (deleteCallback) deleteCallback();
+        });
+
+        itemsContainer.appendChild(itemDiv);
+    };
+
+    // Fetch the upload component dynamically on load
+    fetch('upload_3button.html')
+        .then(response => response.text())
+        .then(html => {
+            window.uploadComponentHtml = html;
+            
+            // Inject into all static placeholders already in the DOM
+            document.querySelectorAll('.attachments-placeholder').forEach(placeholder => {
+                placeholder.outerHTML = window.uploadComponentHtml;
+            });
+            
+            // Trigger load states once HTML component is fetched
+            if (window.location.pathname.includes("p1_storyinventory.html")) {
+                loadWorkbenchState();
+                attachChangeListeners();
+            } else if (window.location.pathname.includes("p2_narrativetime.html")) {
+                loadTimelineState();
+            }
+        })
+        .catch(err => {
+            console.error("Failed to load upload_3button.html component:", err);
+            // Fallback load
+            if (window.location.pathname.includes("p1_storyinventory.html")) {
+                loadWorkbenchState();
+                attachChangeListeners();
+            } else if (window.location.pathname.includes("p2_narrativetime.html")) {
+                loadTimelineState();
+            }
+        });
+
     const addYearButton = document.getElementById("add-year");
     const yearContainer = document.getElementById("year-container");
     const yearTemplate = document.getElementById("year-template");
@@ -7,6 +86,84 @@ document.addEventListener("DOMContentLoaded", function() {
     if (addYearButton && yearContainer && yearTemplate) {
         
         let yearCount = 0;
+
+        // function to save timeline state
+        function saveTimelineState() {
+            const years = [];
+            yearContainer.querySelectorAll('.year').forEach(yearDiv => {
+                const titleEl = yearDiv.querySelector('.year-title');
+                const titleInput = yearDiv.querySelector('input[type="text"]');
+                const dateInputs = yearDiv.querySelectorAll('input[type="date"]');
+                const descTextarea = yearDiv.querySelector('textarea');
+                
+                // Get attachments
+                const attachments = [];
+                yearDiv.querySelectorAll('.attachment-item').forEach(itemDiv => {
+                    attachments.push({
+                        type: itemDiv.dataset.type,
+                        name: itemDiv.dataset.name,
+                        data: itemDiv.dataset.data
+                    });
+                });
+                
+                if (titleEl) {
+                    years.push({
+                        heading: titleEl.textContent.trim(),
+                        title: titleInput ? titleInput.value : '',
+                        startDate: dateInputs.length > 0 ? dateInputs[0].value : '',
+                        endDate: dateInputs.length > 1 ? dateInputs[1].value : '',
+                        description: descTextarea ? descTextarea.value : '',
+                        attachments: attachments
+                    });
+                }
+            });
+            localStorage.setItem('workbench-p2-years', JSON.stringify(years));
+        }
+
+        // function to create a year with data
+        function createYearWithData(data, index) {
+            const templateContent = yearTemplate.content;
+            const yearClone = templateContent.cloneNode(true);
+            const yearDiv = yearClone.querySelector(".year");
+
+            const titleText = yearDiv.querySelector(".year-title");
+            titleText.textContent = data.heading || ("Year " + index);
+
+            const titleInput = yearDiv.querySelector('input[type="text"]');
+            if (titleInput && data.title !== undefined) titleInput.value = data.title;
+
+            const dateInputs = yearDiv.querySelectorAll('input[type="date"]');
+            if (dateInputs.length > 0 && data.startDate !== undefined) dateInputs[0].value = data.startDate;
+            if (dateInputs.length > 1 && data.endDate !== undefined) dateInputs[1].value = data.endDate;
+
+            const descTextarea = yearDiv.querySelector('textarea');
+            if (descTextarea && data.description !== undefined) descTextarea.value = data.description;
+
+            // Replace attachments placeholder with loaded component HTML
+            const placeholder = yearDiv.querySelector('.attachments-placeholder');
+            if (placeholder && window.uploadComponentHtml) {
+                placeholder.outerHTML = window.uploadComponentHtml;
+            }
+
+            // Populate attachments
+            if (data.attachments && Array.isArray(data.attachments)) {
+                data.attachments.forEach(attachment => {
+                    window.addAttachmentItem(yearDiv, attachment, saveTimelineState);
+                });
+            }
+
+            // wire up delete button inside the card
+            const deleteButton = yearDiv.querySelector(".delete-year-btn");
+            if (deleteButton) {
+                deleteButton.addEventListener("click", function() {
+                    yearDiv.remove();
+                    reindexYears();
+                    saveTimelineState();
+                });
+            }
+
+            yearContainer.appendChild(yearDiv);
+        }
 
         // function to create and add a new year card
         function createYear() {
@@ -21,24 +178,25 @@ document.addEventListener("DOMContentLoaded", function() {
             const titleText = yearDiv.querySelector(".year-title");
             titleText.textContent = "Year " + yearCount;
 
-            yearDiv.style.position = "relative";
+            // Replace attachments placeholder with loaded component HTML
+            const placeholder = yearDiv.querySelector('.attachments-placeholder');
+            if (placeholder && window.uploadComponentHtml) {
+                placeholder.outerHTML = window.uploadComponentHtml;
+            }
 
-            // add delete button inside the card
-            const deleteButton = document.createElement("button");
-            deleteButton.type = "button";
-            deleteButton.className = "btn btn-outline-danger btn-sm";
-            deleteButton.style.position = "absolute";
-            deleteButton.style.top = "15px";
-            deleteButton.style.right = "15px";
-            deleteButton.innerHTML = '<i class="bi bi-trash"></i> Delete';
+            // wire up delete button inside the card
+            const deleteButton = yearDiv.querySelector(".delete-year-btn");
+            if (deleteButton) {
+                deleteButton.addEventListener("click", function() {
+                    yearDiv.remove();
+                    reindexYears();
+                    saveTimelineState();
+                });
+            }
 
-            deleteButton.addEventListener("click", function() {
-                yearDiv.remove();
-                reindexYears();
-            });
-
-            yearDiv.appendChild(deleteButton);
             yearContainer.appendChild(yearDiv);
+            
+            saveTimelineState();
         }
 
         // re-number remaining years sequentially
@@ -47,16 +205,127 @@ document.addEventListener("DOMContentLoaded", function() {
             yearCount = allTitles.length;
             
             for (let i = 0; i < allTitles.length; i++) {
-                allTitles[i].textContent = "Year " + (i + 1);
+                const currentText = allTitles[i].textContent.trim();
+                // Rename only if empty or matches sequential format "Year X"
+                if (!currentText || /^Year \d+$/.test(currentText)) {
+                    allTitles[i].textContent = "Year " + (i + 1);
+                }
             }
         }
 
-        createYear();
+        // load saved timeline state
+        function loadTimelineState() {
+            const saved = localStorage.getItem('workbench-p2-years');
+            if (!saved) {
+                createYear();
+                return;
+            }
+            
+            try {
+                const yearsData = JSON.parse(saved);
+                if (!yearsData || yearsData.length === 0) {
+                    createYear();
+                    return;
+                }
+                
+                yearContainer.innerHTML = '';
+                yearCount = yearsData.length;
+                yearsData.forEach((yearData, index) => {
+                    createYearWithData(yearData, index + 1);
+                });
+            } catch (e) {
+                console.error("Error restoring timeline state:", e);
+                createYear();
+            }
+        }
 
         // add new year card when button is clicked
         addYearButton.addEventListener("click", function() {
             createYear();
         });
+
+        // Event delegation inside yearContainer for button clicks
+        yearContainer.addEventListener('click', function(e) {
+            const addPhotoBtn = e.target.closest('.add-photo-btn');
+            const uploadFileBtn = e.target.closest('.upload-file-btn');
+            const addLinkBtn = e.target.closest('.add-link-btn');
+
+            if (addPhotoBtn) {
+                const yearDiv = addPhotoBtn.closest('.year');
+                const fileInput = yearDiv.querySelector('.add-photo-input');
+                if (fileInput) fileInput.click();
+            } else if (uploadFileBtn) {
+                const yearDiv = uploadFileBtn.closest('.year');
+                const fileInput = yearDiv.querySelector('.upload-file-input');
+                if (fileInput) fileInput.click();
+            } else if (addLinkBtn) {
+                const yearDiv = addLinkBtn.closest('.year');
+                const url = prompt("Enter link URL (e.g. https://example.com):");
+                if (url) {
+                    let formattedUrl = url.trim();
+                    if (!/^https?:\/\//i.test(formattedUrl)) {
+                        formattedUrl = 'https://' + formattedUrl;
+                    }
+                    addAttachmentItem(yearDiv, { type: 'link', name: formattedUrl, data: formattedUrl });
+                    saveTimelineState();
+                }
+            }
+        });
+
+        // Event delegation inside yearContainer for file input changes
+        yearContainer.addEventListener('change', function(e) {
+            const fileInput = e.target;
+            if (fileInput.classList.contains('add-photo-input') || fileInput.classList.contains('upload-file-input')) {
+                const file = fileInput.files[0];
+                if (!file) return;
+
+                const yearDiv = fileInput.closest('.year');
+                const type = fileInput.classList.contains('add-photo-input') ? 'image' : 'file';
+
+                // Check file size (limit to 1.5MB to avoid localStorage quota issues)
+                if (file.size > 1500000) {
+                    alert("File is too large! Please choose a file smaller than 1.5MB to ensure it can be saved locally.");
+                    fileInput.value = ''; // clear input
+                    return;
+                }
+
+                const reader = new FileReader();
+                reader.onload = function(event) {
+                    const dataUrl = event.target.result;
+                    addAttachmentItem(yearDiv, { type: type, name: file.name, data: dataUrl });
+                    saveTimelineState();
+                    fileInput.value = ''; // clear input
+                };
+                reader.readAsDataURL(file);
+            }
+        });
+
+        // Setup autosave on user inputs inside yearContainer
+        yearContainer.addEventListener('input', function() {
+            saveTimelineState();
+        });
+        
+        yearContainer.addEventListener('blur', function(e) {
+            if (e.target.classList.contains('year-title')) {
+                saveTimelineState();
+            }
+        }, true);
+
+        yearContainer.addEventListener('keydown', function(e) {
+            if (e.target.classList.contains('year-title') && e.key === 'Enter') {
+                e.preventDefault();
+                e.target.blur();
+            }
+        });
+
+        // Hook up the Save Progress button
+        const saveProgressButton = document.getElementById("save-progress");
+        if (saveProgressButton) {
+            saveProgressButton.addEventListener("click", function() {
+                saveTimelineState();
+                alert("Progress saved successfully!");
+            });
+        }
     }
 
     // Handle the editable navbar brand title
@@ -138,6 +407,63 @@ document.addEventListener("DOMContentLoaded", function() {
     if (window.location.pathname.includes("p1_storyinventory.html")) {
         loadWorkbenchState();
         attachChangeListeners();
+
+        // Event delegation for Phase 1 attachments clicks
+        const mainContainer = document.querySelector('main');
+        if (mainContainer) {
+            mainContainer.addEventListener('click', function(e) {
+                const addPhotoBtn = e.target.closest('.add-photo-btn');
+                const uploadFileBtn = e.target.closest('.upload-file-btn');
+                const addLinkBtn = e.target.closest('.add-link-btn');
+
+                if (addPhotoBtn) {
+                    const cardDiv = addPhotoBtn.closest('.card');
+                    const fileInput = cardDiv.querySelector('.add-photo-input');
+                    if (fileInput) fileInput.click();
+                } else if (uploadFileBtn) {
+                    const cardDiv = uploadFileBtn.closest('.card');
+                    const fileInput = cardDiv.querySelector('.upload-file-input');
+                    if (fileInput) fileInput.click();
+                } else if (addLinkBtn) {
+                    const cardDiv = addLinkBtn.closest('.card');
+                    const url = prompt("Enter link URL (e.g. https://example.com):");
+                    if (url) {
+                        let formattedUrl = url.trim();
+                        if (!/^https?:\/\//i.test(formattedUrl)) {
+                            formattedUrl = 'https://' + formattedUrl;
+                        }
+                        window.addAttachmentItem(cardDiv, { type: 'link', name: formattedUrl, data: formattedUrl }, window.saveWorkbenchState);
+                        saveWorkbenchState();
+                    }
+                }
+            });
+
+            mainContainer.addEventListener('change', function(e) {
+                const fileInput = e.target;
+                if (fileInput.classList.contains('add-photo-input') || fileInput.classList.contains('upload-file-input')) {
+                    const file = fileInput.files[0];
+                    if (!file) return;
+
+                    const cardDiv = fileInput.closest('.card');
+                    const type = fileInput.classList.contains('add-photo-input') ? 'image' : 'file';
+
+                    if (file.size > 1500000) {
+                        alert("File is too large! Please choose a file smaller than 1.5MB to ensure it can be saved locally.");
+                        fileInput.value = '';
+                        return;
+                    }
+
+                    const reader = new FileReader();
+                    reader.onload = function(event) {
+                        const dataUrl = event.target.result;
+                        window.addAttachmentItem(cardDiv, { type: type, name: file.name, data: dataUrl }, window.saveWorkbenchState);
+                        saveWorkbenchState();
+                        fileInput.value = '';
+                    };
+                    reader.readAsDataURL(file);
+                }
+            });
+        }
     }
 });
 
@@ -158,11 +484,23 @@ window.saveWorkbenchState = function() {
             const h3El = card.querySelector('h3');
             const textarea = card.querySelector('textarea');
             const descEl = card.querySelector('.card-desc');
+            
+            // Get attachments
+            const attachments = [];
+            card.querySelectorAll('.attachment-item').forEach(itemDiv => {
+                attachments.push({
+                    type: itemDiv.dataset.type,
+                    name: itemDiv.dataset.name,
+                    data: itemDiv.dataset.data
+                });
+            });
+
             if (h3El && textarea) {
                 cards.push({
                     title: h3El.textContent.trim(),
                     text: textarea.value,
-                    desc: descEl ? descEl.textContent.trim() : ''
+                    desc: descEl ? descEl.textContent.trim() : '',
+                    attachments: attachments
                 });
             }
         });
@@ -199,7 +537,7 @@ window.loadWorkbenchState = function() {
               <div class="d-flex justify-content-between align-items-start mb-4">
                 <div>
                   <div class="d-inline-flex align-items-center mb-1">
-                    <h2 class="me-0 mb-0" contenteditable="true" style="outline: none; border-bottom: 1px dashed #ced4da; cursor: text;" title="Click to edit">${sectionTitle}</h2>
+                    <h2 class="fs-4 me-0 mb-0" contenteditable="true" style="outline: none; border-bottom: 1px dashed #ced4da; cursor: text;" title="Click to edit">${sectionTitle}</h2>
                     <i class="bi bi-pencil-fill ms-2" style="font-size: 0.9rem; cursor: pointer; color: var(--primary-hover);" title="Click to edit"></i>
                   </div>
                   <p class="text-muted small mb-0">Goal: Understand your personal transformation through key miltestones</p>
@@ -233,12 +571,12 @@ window.loadWorkbenchState = function() {
                     const descHtml = cardDesc ? `<p class="text-muted small mb-2 card-desc fst-italic">${cardDesc}</p>` : '';
                     
                     return `
-                    <div class="${colClass}">
+                    <div class="${colClass}" data-card-title="${cardData.title}">
                       <div class="card h-100">
                         <div class="card-body">
                           <div class="d-flex justify-content-between align-items-center mb-2">
                             <div class="d-inline-flex align-items-center">
-                              <h3 class="me-0 mb-0" contenteditable="true" style="outline: none; border-bottom: 1px dashed #ced4da; cursor: text;" title="Click to edit">${cardData.title}</h3>
+                              <h3 class="fs-5 me-0 mb-0" contenteditable="true" style="outline: none; border-bottom: 1px dashed #ced4da; cursor: text;" title="Click to edit">${cardData.title}</h3>
                               <i class="bi bi-pencil-fill ms-2" style="font-size: 0.8rem; cursor: pointer; color: var(--primary-hover);" title="Click to edit"></i>
                             </div>
                             <div class="d-flex gap-2">
@@ -252,6 +590,10 @@ window.loadWorkbenchState = function() {
                           </div>
                           ${descHtml}
                           <textarea class="form-control" rows="${rows}" placeholder="Write your things here ...">${cardData.text}</textarea>
+
+                          <!-- Attachments Component Placeholder -->
+                          <div class="attachments-placeholder"></div>
+
                         </div>
                       </div>
                     </div>
@@ -261,6 +603,24 @@ window.loadWorkbenchState = function() {
             </section>
             `;
             mainContainer.insertAdjacentHTML('beforeend', sectionHtml);
+            
+            // Replace placeholders in the added section
+            const addedSection = mainContainer.lastElementChild;
+            addedSection.querySelectorAll('.attachments-placeholder').forEach(placeholder => {
+                if (window.uploadComponentHtml) {
+                    placeholder.outerHTML = window.uploadComponentHtml;
+                }
+            });
+
+            // Populate attachments
+            secData.cards.forEach(cardData => {
+                const cardDiv = addedSection.querySelector(`[data-card-title="${cardData.title}"]`);
+                if (cardDiv && cardData.attachments && Array.isArray(cardData.attachments)) {
+                    cardData.attachments.forEach(att => {
+                        window.addAttachmentItem(cardDiv, att, window.saveWorkbenchState);
+                    });
+                }
+            });
         });
     } catch (e) {
         console.error("Error restoring workbench state:", e);
@@ -299,6 +659,14 @@ window.duplicateCard = function(button) {
     const textarea = clone.querySelector('textarea');
     if (textarea) textarea.value = '';
     
+    // Clear attachments in duplicate card
+    const itemsContainer = clone.querySelector('.uploaded-items-container');
+    if (itemsContainer) itemsContainer.innerHTML = '';
+    
+    // Reset file input values
+    const fileInputs = clone.querySelectorAll('input[type="file"]');
+    fileInputs.forEach(input => input.value = '');
+    
     // Insert after the original card
     cardCol.parentNode.insertBefore(clone, cardCol.nextSibling);
     
@@ -324,6 +692,10 @@ window.duplicateSection = function(button) {
     // Reset textarea values in duplicated section
     const textareas = clone.querySelectorAll('textarea');
     textareas.forEach(t => t.value = '');
+    
+    // Reset attachments in duplicated section cards
+    clone.querySelectorAll('.uploaded-items-container').forEach(cont => cont.innerHTML = '');
+    clone.querySelectorAll('input[type="file"]').forEach(input => input.value = '');
     
     // Insert after original section
     section.parentNode.insertBefore(clone, section.nextSibling);
@@ -356,7 +728,7 @@ window.addCardToSection = function(button) {
         <div class="card-body">
           <div class="d-flex justify-content-between align-items-center mb-2">
             <div class="d-inline-flex align-items-center">
-              <h3 class="me-0 mb-0" contenteditable="true" style="outline: none; border-bottom: 1px dashed #ced4da; cursor: text;" title="Click to edit">New Card</h3>
+              <h3 class="fs-5 me-0 mb-0" contenteditable="true" style="outline: none; border-bottom: 1px dashed #ced4da; cursor: text;" title="Click to edit">New Card</h3>
               <i class="bi bi-pencil-fill ms-2" style="font-size: 0.8rem; cursor: pointer; color: var(--primary-hover);" title="Click to edit"></i>
             </div>
             <div class="d-flex gap-2">
@@ -370,11 +742,21 @@ window.addCardToSection = function(button) {
           </div>
           <p class="text-muted small mb-2 card-desc fst-italic">Anything you wanna add more ...</p>
           <textarea class="form-control" rows="6" placeholder="Write your things here ..."></textarea>
+
+          <!-- Attachments Component Placeholder -->
+          <div class="attachments-placeholder"></div>
+
         </div>
       </div>
     `;
     row.appendChild(newCol);
     
+    // Replace placeholder with dynamically loaded component HTML
+    const placeholder = newCol.querySelector('.attachments-placeholder');
+    if (placeholder && window.uploadComponentHtml) {
+        placeholder.outerHTML = window.uploadComponentHtml;
+    }
+
     attachChangeListeners();
     saveWorkbenchState();
 };

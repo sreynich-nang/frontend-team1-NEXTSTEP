@@ -42,10 +42,12 @@ main {
 
 
 .year {
-    border: 1px solid #ccc;
+    background-color: #ffffff;
+    border: 1px solid #dee2e6;
     border-radius: 8px;
     padding: 20px;
     margin-bottom: 20px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
 }
 
 .year h2 {
@@ -62,11 +64,27 @@ label {
     font-weight: bold;
 }
 
-input,
-textarea {
+.year label {
+    color: var(--active-text);
+}
+
+.year input,
+.year textarea {
     width: 100%;
-    padding: 8px;
+    padding: 10px;
     box-sizing: border-box;
+    background-color: #f3f5f8;
+    border: 1px solid #dee2e6;
+    border-radius: 6px;
+    transition: background-color 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.year input:focus,
+.year textarea:focus {
+    background-color: #ffffff;
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 0.2rem rgba(140, 179, 234, 0.25);
+    outline: none;
 }
 
 textarea {
@@ -76,4 +94,50 @@ textarea {
 button {
     padding: 10px 20px;
     cursor: pointer;
+}
+
+/* Attachment Badge Buttons Styles */
+.add-photo-btn,
+.upload-file-btn,
+.add-link-btn {
+    color: var(--active-text) !important;
+    border-color: var(--primary-color) !important;
+    background-color: transparent !important;
+    transition: all 0.2s ease-in-out;
+}
+
+.add-photo-btn:hover,
+.upload-file-btn:hover,
+.add-link-btn:hover {
+    background-color: var(--primary-hover) !important;
+    border-color: var(--primary-hover) !important;
+    color: #ffffff !important;
+}
+
+/* Add Year Button (Outline style) */
+#add-year.btn-outline-primary {
+    color: var(--active-text) !important;
+    border-color: var(--primary-color) !important;
+    background-color: transparent !important;
+    transition: all 0.2s ease-in-out;
+}
+
+#add-year.btn-outline-primary:hover {
+    background-color: var(--primary-hover) !important;
+    border-color: var(--primary-hover) !important;
+    color: #ffffff !important;
+}
+
+/* Save Progress Button (Solid style) */
+#save-progress.btn-primary {
+    background-color: var(--active-text) !important;
+    border-color: var(--active-text) !important;
+    color: #ffffff !important;
+    transition: all 0.2s ease-in-out;
+}
+
+#save-progress.btn-primary:hover {
+    background-color: var(--primary-hover) !important;
+    border-color: var(--primary-hover) !important;
+    color: #ffffff !important;
 }

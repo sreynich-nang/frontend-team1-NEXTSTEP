@@ -1,0 +1,19 @@
+<div class="form-group mt-3">
+  <label class="text-secondary small fw-bold">Attachments</label>
+  <div class="d-flex flex-wrap gap-2 mb-2">
+    <button type="button" class="btn btn-outline-secondary btn-sm rounded-pill d-inline-flex align-items-center gap-1 add-photo-btn">
+      <span class="material-symbols-outlined" style="font-size: 18px;">add_a_photo</span> Add Photo
+    </button>
+    <button type="button" class="btn btn-outline-secondary btn-sm rounded-pill d-inline-flex align-items-center gap-1 upload-file-btn">
+      <span class="material-symbols-outlined" style="font-size: 18px;">upload_file</span> Upload
+    </button>
+    <button type="button" class="btn btn-outline-secondary btn-sm rounded-pill d-inline-flex align-items-center gap-1 add-link-btn">
+      <span class="material-symbols-outlined" style="font-size: 18px;">add_link</span> Add Link
+    </button>
+    
+    <!-- Hidden file inputs -->
+    <input type="file" accept="image/*" class="add-photo-input d-none" />
+    <input type="file" accept=".pdf,.doc,.docx,.xls,.xlsx,.ppt,.pptx,.txt" class="upload-file-input d-none" />
+  </div>
+  <div class="uploaded-items-container d-flex flex-wrap gap-2 mt-2"></div>
+</div>
