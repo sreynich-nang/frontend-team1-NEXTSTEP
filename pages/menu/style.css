@@ -8,7 +8,7 @@ body {
 
 /* --- Layout Wrapper --- */
 .main-wrapper {
-    max-width: 1100px;
+    /* max-width: 1100px; */
     margin: 0 auto;
     background-color: #ffffff;
     padding: 20px 40px;
@@ -121,7 +121,7 @@ body {
 }
 
 #footer .footer-container {
-    max-width: 1100px;
+    /* max-width: 1100px; */
     margin: 0 auto;
 }
 
