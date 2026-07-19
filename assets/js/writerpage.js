@@ -558,7 +558,7 @@ window.loadWorkbenchState = function() {
             }
             const sectionHtml = `
             <section class="mb-5 border rounded p-4 bg-white shadow-sm">
-              <div class="d-flex justify-content-between align-items-start mb-4">
+              <div class="d-flex flex-column flex-sm-row justify-content-between align-items-start align-items-sm-center gap-3 mb-4">
                 <div>
                   <div class="d-inline-flex align-items-center mb-1">
                     <h2 class="fs-4 me-0 mb-0" contenteditable="true" style="outline: none; border-bottom: 1px dashed #ced4da; cursor: text;" title="Click to edit">${sectionTitle}</h2>
@@ -566,11 +566,11 @@ window.loadWorkbenchState = function() {
                   </div>
                   <p class="text-muted small mb-0">Goal: Understand your personal transformation through key miltestones</p>
                 </div>
-                <div class="btn-group">
-                  <button class="btn btn-sm btn-outline-primary me-2" onclick="addCardToSection(this)" title="Add Card">
+                <div class="d-flex flex-wrap gap-2">
+                  <button class="btn btn-sm btn-outline-primary" onclick="addCardToSection(this)" title="Add Card">
                     <i class="bi bi-plus-circle"></i> Add Card
                   </button>
-                  <button class="btn btn-sm btn-outline-secondary me-2" onclick="duplicateSection(this)" title="Duplicate Section">
+                  <button class="btn btn-sm btn-outline-secondary" onclick="duplicateSection(this)" title="Duplicate Section">
                     <i class="bi bi-copy"></i> Duplicate
                   </button>
                   <button class="btn btn-sm btn-outline-danger" onclick="deleteSection(this)" title="Delete Section">
